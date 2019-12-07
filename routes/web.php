@@ -15,6 +15,6 @@ Route::get('/', function () {
     phpinfo();
 });
 
-Route::get('/info',function () {
+Route::get('/aa',function () {
     phpinfo();
 });
