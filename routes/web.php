@@ -12,9 +12,9 @@
 */
 
 Route::get('/', function () {
-    phpinfo();
+    return view('welcome');
 });
 
-Route::get('/aa',function () {
+Route::get('/info',function () {
     phpinfo();
 });
