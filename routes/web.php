@@ -18,3 +18,5 @@ Route::get('/', function () {
 Route::get('/info',function () {
     phpinfo();
 });
+
+Route::get('/wx','Weixin\WeixinController@wechat');
