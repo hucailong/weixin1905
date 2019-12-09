@@ -20,3 +20,4 @@ Route::get('/info',function () {
 });
 
 Route::get('/wx','Weixin\WeixController@wechat');
+Route::post('/wx','Weixin\WeixController@send');

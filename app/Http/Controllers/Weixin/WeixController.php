@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class WeixController extends Controller
 {
+
+    /**
+     * 接入微信服务器
+     */
     public function wechat()
     {
         $token = '20010506h20011104zysys9999';       //开发提前设置好的 token
@@ -26,4 +30,20 @@ class WeixController extends Controller
             die("not ok");
         }
     }
+
+    /**
+     * 获取服务器推送
+     */
+    public function send(){
+        //获取access_token 写入日志
+        $logs = 'wx.log';
+        $xml = file_get_contents("php://input");
+        $data = time('Y-m-d H:i:s').$xml;
+        file_put_contents($logs,$data,FILE_APPEND);
+    }
+
+    public function getUserInfo(){
+        $url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.env('WX_APPID').'&secret='.env('WX_APPSECRET').'';
+    }
+
 }
