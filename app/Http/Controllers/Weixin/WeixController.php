@@ -36,14 +36,15 @@ class WeixController extends Controller
      */
     public function send(){
         //获取access_token 写入日志
-        $logs = 'wx.log';
-        $xml = file_get_contents("php://input");
+        $log_filename = 'wx.log';
+//        $xml = file_get_contents("php://input");
+        $xml = json_encode($_POST);
         $data = time('Y-m-d H:i:s').$xml;
-        file_put_contents($logs,$data,FILE_APPEND);
+        file_put_contents($log_filename,$data,FILE_APPEND);
     }
 
-    public function getUserInfo(){
-        $url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.env('WX_APPID').'&secret='.env('WX_APPSECRET').'';
-    }
+//    public function getUserInfo(){
+//        $url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.env('WX_APPID').'&secret='.env('WX_APPSECRET').'';
+//    }
 
 }
