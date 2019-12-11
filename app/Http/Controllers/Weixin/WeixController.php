@@ -17,7 +17,7 @@ class WeixController extends Controller
     }
 
      protected function getAccessToken(){
-        $url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx55933e3c133abb3c&secret=bbabeead621a2a1e38f1d69ac5a2a7c9';
+        $url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.env('WX_APPID').'&secret='.env('WX_APPSECRET').'';
         $data_json = file_get_contents($url);
         file_put_contents('text.log',$data_json);
 //        $arr = json_decode($data_json,true);
