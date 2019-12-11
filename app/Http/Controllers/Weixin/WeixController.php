@@ -37,9 +37,9 @@ class WeixController extends Controller
     public function send(){
         //获取access_token 写入日志
         $log_filename = 'wx.log';
-//        $xml = file_get_contents("php://input");
-        $xml = json_encode($_POST);
-        $data = time('Y-m-d H:i:s').$xml;
+        $xml = file_get_contents("php://input");
+//        $xml = json_encode($_POST);
+        $data = date('Y-m-d H:i:s').$xml;
         file_put_contents($log_filename,$data);
 //        echo 111;
     }
