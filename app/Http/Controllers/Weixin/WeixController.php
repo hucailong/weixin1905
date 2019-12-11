@@ -8,6 +8,21 @@ use Illuminate\Http\Request;
 class WeixController extends Controller
 {
 
+    protected $access_token;
+
+    //获取access_token
+    public function __construct()
+    {
+        $this ->access_token = $this->getAccessToken();
+    }
+
+     protected function getAccessToken(){
+        $url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.env('WX_APPID').'&secret='.env('WX_APPSECRET').'';
+        $data_json = file_get_contents($url);
+        $arr = json_decode($data_json,true);
+        return $arr['access_token'];
+
+    }
     /**
      * 接入微信服务器
      */
@@ -37,15 +52,31 @@ class WeixController extends Controller
     public function send(){
         //获取access_token 写入日志
         $log_filename = 'wx.log';
-        $xml = file_get_contents("php://input");
+        $xml_str = file_get_contents("php://input");
 //        $xml = json_encode($_POST);
-        $data = date('Y-m-d H:i:s').$xml;
-        file_put_contents($log_filename,$data);
-//        echo 111;
+        $data = date('Y-m-d H:i:s').$xml_str;
+        file_put_contents($log_filename,$data,8);
+        //处理xml数据
+
+        $xml_obj = simplexml_load_string($xml_str);
+        $event = $xml_obj ->Event;
+        if($event =='subscribe'){
+            $openid = $xml_obj ->FromUserName;
+            $url = 'https://api.weixin.qq.com/cgi-bin/user/info?access_token='.$this->access_token.'&openid='.$openid.'';
+            $user_info = file_get_contents($url);
+            file_put_contents('wx_user.log',$user_info,8);
+            
+
+        }
     }
 
-//    public function getUserInfo(){
-//        $url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.env('WX_APPID').'&secret='.env('WX_APPSECRET').'';
-//    }
+    public function getUserInfo($access_token,$openid){
+        $url = 'https://api.weixin.qq.com/cgi-bin/user/info?access_token='.$access_token.'&openid='.$openid.'';
+        //发送网络请求
+        $pull = file_get_contents($url);
+        //日志写入
+        $logname = 'wx_user.log';
+        file_put_contents($logname,$pull,8);
+    }
 
 }
