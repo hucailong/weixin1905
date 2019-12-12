@@ -69,9 +69,29 @@ class WeixController extends Controller
             $url = 'https://api.weixin.qq.com/cgi-bin/user/info?access_token='.$this->access_token.'&openid='.$openid.'';
             $user_info = file_get_contents($url);
             file_put_contents('wx_user.log',$user_info,8);
-
-
         }
+
+//        确认消息类型
+        $msg_type = $xml_obj->MsgType;
+
+        $touser = $xml_obj->FromUserName;
+        $form_user = $xml_obj->FromUserName;
+        $recovery_time = time();
+        if ($msg_type == 'text'){
+            $content = date('Y-m-d H:i:s').$xml_obj->Content;
+            $response_text = '<xml>
+                                <ToUserName><![CDATA['.$touser.']]></ToUserName>
+                                <FromUserName><![CDATA['.$form_user.']]></FromUserName>
+                                <CreateTime>1576117194</CreateTime>
+                                <MsgType><![CDATA[text]]></MsgType>
+                                <Content><![CDATA[你好]]></Content>
+                                <MsgId>22564568700815540</MsgId>
+                              </xml>';
+        }
+
+
+
+
     }
 
     public function getUserInfo($access_token,$openid){
