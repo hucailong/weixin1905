@@ -34,4 +34,22 @@
 <MsgType><![CDATA[event]]></MsgType>
 <Event><![CDATA[subscribe]]></Event>
 <EventKey><![CDATA[]]></EventKey>
+</xml>2019-12-12 02:14:15<xml><ToUserName><![CDATA[gh_70ac0054afe0]]></ToUserName>
+<FromUserName><![CDATA[ooRh-0TTkeDhaECXVI9w2Jrk7vTE]]></FromUserName>
+<CreateTime>1576051212</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[subscribe]]></Event>
+<EventKey><![CDATA[]]></EventKey>
+</xml>2019-12-12 02:15:49<xml><ToUserName><![CDATA[gh_70ac0054afe0]]></ToUserName>
+<FromUserName><![CDATA[ooRh-0TTkeDhaECXVI9w2Jrk7vTE]]></FromUserName>
+<CreateTime>1576051212</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[subscribe]]></Event>
+<EventKey><![CDATA[]]></EventKey>
+</xml>2019-12-12 02:19:54<xml><ToUserName><![CDATA[gh_70ac0054afe0]]></ToUserName>
+<FromUserName><![CDATA[ooRh-0TTkeDhaECXVI9w2Jrk7vTE]]></FromUserName>
+<CreateTime>1576117194</CreateTime>
+<MsgType><![CDATA[text]]></MsgType>
+<Content><![CDATA[你好]]></Content>
+<MsgId>22564568700815540</MsgId>
 </xml>
