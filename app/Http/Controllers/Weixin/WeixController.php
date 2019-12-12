@@ -50,9 +50,12 @@ class WeixController extends Controller
      * 获取服务器推送
      */
     public function send(){
+
         //获取access_token 写入日志
         $log_filename = 'wx.log';
+
         $xml_str = file_get_contents("php://input");
+
 //        $xml = json_encode($_POST);
         $data = date('Y-m-d H:i:s').$xml_str;
         file_put_contents($log_filename,$data,8);
@@ -60,7 +63,8 @@ class WeixController extends Controller
 
         $xml_obj = simplexml_load_string($xml_str);
         $event = $xml_obj ->Event;
-        if($event =='subscribe'){
+
+        if($event=='subscribe'){
             $openid = $xml_obj ->FromUserName;
             $url = 'https://api.weixin.qq.com/cgi-bin/user/info?access_token='.$this->access_token.'&openid='.$openid.'';
             $user_info = file_get_contents($url);
