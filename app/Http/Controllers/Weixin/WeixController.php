@@ -82,7 +82,7 @@ class WeixController extends Controller
             $response_text = '<xml>
                                 <ToUserName><![CDATA['.$touser.']]></ToUserName>
                                 <FromUserName><![CDATA['.$form_user.']]></FromUserName>
-                                <CreateTime>1576117194</CreateTime>
+                                <CreateTime>'.$recovery_time.'</CreateTime>
                                 <MsgType><![CDATA[text]]></MsgType>
                                 <Content><![CDATA[你好]]></Content>
                                 <MsgId>22564568700815540</MsgId>
