@@ -76,20 +76,20 @@ class WeixController extends Controller
 
 //        确认消息类型
         $msg_type = $xml_obj->MsgType;
-        $touser = $xml_obj->ToUserName;
-        $form_user = $xml_obj->FromUserName;
+        $form_user = $xml_obj->ToUserName;
+        $touser = $xml_obj->FromUserName;
         $createtime = time();
 
         //被动回复
         if ($msg_type == 'text'){
             $content = date('Y-m-d H:i:s').$xml_obj->Content;
             $response_text = '<xml>
-                                  <ToUserName><![CDATA['.$touser.']]></ToUserName>
-                                  <FromUserName><![CDATA['.$form_user.']]></FromUserName>
-                                  <CreateTime>'.$createtime.'</CreateTime>
-                                  <MsgType><![CDATA[text]]></MsgType>
-                                  <Content><![CDATA['.$content.']]></Content>
-                               </xml>';
+<ToUserName><![CDATA['.$touser.']]></ToUserName>
+<FromUserName><![CDATA['.$form_user.']]></FromUserName>
+<CreateTime>'.$createtime.'</CreateTime>
+<MsgType><![CDATA[text]]></MsgType>
+<Content><![CDATA['.$content.']]></Content>
+</xml>';
             echo $response_text;
         }
 
