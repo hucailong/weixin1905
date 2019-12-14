@@ -53,17 +53,19 @@ class WeixController extends Controller
 
         //获取access_token 写入日志
         $log_filename = 'wx.log';
-
         $xml_str = file_get_contents("php://input");
-
-//        $xml = json_encode($_POST);
-        $data = date('Y-m-d H:i:s').$xml_str;
+        $data = date('Y-m-d H:i:s')."\n".$xml_str;
         file_put_contents($log_filename,$data,8);
-        //处理xml数据
 
+
+
+        //处理xml数据
         $xml_obj = simplexml_load_string($xml_str);
         $event = $xml_obj ->Event;
 
+
+
+        //扫描码获取用户信息
         if($event=='subscribe'){
             $openid = $xml_obj ->FromUserName;
             $url = 'https://api.weixin.qq.com/cgi-bin/user/info?access_token='.$this->access_token.'&openid='.$openid.'';
@@ -71,25 +73,26 @@ class WeixController extends Controller
             file_put_contents('wx_user.log',$user_info,8);
         }
 
+
 //        确认消息类型
         $msg_type = $xml_obj->MsgType;
-
-        $touser = $xml_obj->FromUserName;
+        $touser = $xml_obj->ToUserName;
         $form_user = $xml_obj->FromUserName;
-        $recovery_time = time();
+        $createtime = time();
+
+        //被动回复
         if ($msg_type == 'text'){
             $content = date('Y-m-d H:i:s').$xml_obj->Content;
             $response_text = '<xml>
-                                <ToUserName><![CDATA['.$touser.']]></ToUserName>
-                                <FromUserName><![CDATA['.$form_user.']]></FromUserName>
-                                <CreateTime>'.$recovery_time.'</CreateTime>
-                                <MsgType><![CDATA[text]]></MsgType>
-                                <Content><![CDATA[你好]]></Content>
-                                <MsgId>22564568700815540</MsgId>
-                              </xml>';
+                                  <ToUserName><![CDATA['.$touser.']]></ToUserName>
+                                  <FromUserName><![CDATA['.$form_user.']]></FromUserName>
+                                  <CreateTime>'.$createtime.'</CreateTime>
+                                  <MsgType><![CDATA[text]]></MsgType>
+                                  <Content><![CDATA['.$content.']]></Content>
+                               </xml>';
+
+            echo $response_text;
         }
-
-
 
 
     }
