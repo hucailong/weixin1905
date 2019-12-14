@@ -90,7 +90,6 @@ class WeixController extends Controller
                                   <MsgType><![CDATA[text]]></MsgType>
                                   <Content><![CDATA['.$content.']]></Content>
                                </xml>';
-
             echo $response_text;
         }
 
