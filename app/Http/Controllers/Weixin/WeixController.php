@@ -70,7 +70,12 @@ class WeixController extends Controller
             $openid = $xml_obj ->FromUserName;
             $url = 'https://api.weixin.qq.com/cgi-bin/user/info?access_token='.$this->access_token.'&openid='.$openid.'';
             $user_info = file_get_contents($url);
-            file_put_contents('wx_user.log',$user_info,8);
+            file_put_contents('wx_user.log',$user_info."\n",8);
+//            $user_info = json_decode($user_info);
+//            print_r($user_info);exit;
+
+
+
         }
 
 
