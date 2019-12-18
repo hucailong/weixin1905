@@ -83,9 +83,8 @@ class WeixController extends Controller
                     'sub_time' =>$xml_obj->CreateTime,
                 ];
                 $uid = WxUserModel::insertGetId($user_data);
-                echo ('谢谢关注');exit;
             }
-            
+
 
 //           print_r($user_data);exit;
 
@@ -93,7 +92,7 @@ class WeixController extends Controller
             //获取用户信息
             $url = 'https://api.weixin.qq.com/cgi-bin/user/info?access_token='.$this->access_token.'&openid='.$openid.'';
             $user_info = file_get_contents($url);
-            var_dump($user_info);exit;
+
             $add_time = date('Y-m-d H:i:s')."\n".$user_info;
             file_put_contents('wx_user.log',$add_time,8);
 
