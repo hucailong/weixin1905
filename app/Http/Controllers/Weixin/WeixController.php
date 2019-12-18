@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Weixin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Model\WxUserModel;
 class WeixController extends Controller
 {
 
@@ -61,19 +61,42 @@ class WeixController extends Controller
 
         //处理xml数据
         $xml_obj = simplexml_load_string($xml_str);
+//        var_dump($xml_obj);
         $event = $xml_obj ->Event;
+//        var_dump($event);exit;
+
 
 
 
         //扫描码获取用户信息
         if($event=='subscribe'){
             $openid = $xml_obj ->FromUserName;
+//            var_dump($openid);exit;
+            //判断用户是否已存在
+            $user = WxUserModel::where(['openid'=>$openid])->first();
+            if ($user){
+                //TODO 欢迎回来
+                echo ('欢迎回来');
+            }else{
+                $user_data = [
+                    'openid'   =>$openid,
+                    'sub_time' =>$xml_obj->CreateTime,
+                ];
+                $uid = WxUserModel::insertGetId($user_data);
+                echo ('谢谢关注');exit;
+            }
+            
+
+//           print_r($user_data);exit;
+
+
+            //获取用户信息
             $url = 'https://api.weixin.qq.com/cgi-bin/user/info?access_token='.$this->access_token.'&openid='.$openid.'';
             $user_info = file_get_contents($url);
+            var_dump($user_info);exit;
             $add_time = date('Y-m-d H:i:s')."\n".$user_info;
             file_put_contents('wx_user.log',$add_time,8);
-//            $user_info = json_decode($user_info);
-//            print_r($user_info);exit;
+
 
 
 
