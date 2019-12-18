@@ -74,9 +74,16 @@ class WeixController extends Controller
 //            var_dump($openid);exit;
             //判断用户是否已存在
             $user = WxUserModel::where(['openid'=>$openid])->first();
-            if ($user){
-                //TODO 欢迎回来
-                echo ('欢迎回来');
+            if($user){
+                    $msg = '欢迎回来';
+                    $xml = '<xml>
+  <ToUserName><![CDATA['.$openid.']]></ToUserName>
+  <FromUserName><![CDATA['.$xml_obj->ToUserName.']]></FromUserName>
+  <CreateTime>'.time().'</CreateTime>
+  <MsgType><![CDATA[text]]></MsgType>
+  <Content><![CDATA['.$msg.']]></Content>
+</xml>';
+                    echo $xml;
             }else{
                 $user_data = [
                     'openid'   =>$openid,
